@@ -1,10 +1,10 @@
 use std::io;
 use std::fs;
-use std::io::stdin;
-use std::str::Lines;
 
 fn main() {
-    
+    let data = get_data_from_console();
+    let mut linedata = data.lines();
+
     
     let settings = match linedata.next() {
         Some(line) => line,
@@ -61,7 +61,6 @@ fn get_data_from_console() -> String {
     let mut sline = String::new();
     let stdin = io::stdin();
     stdin.read_line(&mut fline);
-    fline.push_str("\n");
     stdin.read_line(&mut sline);
     fline.push_str(&sline);
     fline
