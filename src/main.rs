@@ -2,7 +2,7 @@ use std::io;
 use std::fs;
 
 fn main() {
-    let data = get_data_from_console();
+    let data = get_data_from_file();
     let mut linedata = data.lines();
 
     
@@ -11,19 +11,17 @@ fn main() {
         None => return,
     };
 
-    /* let mut settings = String::new();
-    let stdin = io::stdin();
-    stdin.read_line(&mut settings).expect("there should be data here"); */
-
     let mut settings = settings.trim().split(" ");
-    let board_size: isize = settings.next().unwrap().parse().ok().ok_or_else("board size could not parse")?;
+    let board_size: isize = settings.next()
+        .unwrap()
+        .parse()
+        .ok()
+        .ok_or_else("board size could not parse");
+
     let start_pos: isize = settings.next().unwrap().parse::<isize>().unwrap() -1;
     let win_value: isize = settings.next().unwrap().parse().expect("there should be things here");
 
     let board: Vec<&str> = linedata.next().expect("there should be data").split_whitespace().collect();
-    /* let mut buffer = String::new();
-    stdin.read_line(&mut buffer).expect("there should be data here");
-    let board: Vec<&str> = buffer.split_whitespace().collect(); */
 
     let mut pos = start_pos.clone();
     let mut hops = 0;
@@ -60,8 +58,10 @@ fn get_data_from_console() -> String {
     let mut fline = String::new();
     let mut sline = String::new();
     let stdin = io::stdin();
-    stdin.read_line(&mut fline);
-    stdin.read_line(&mut sline);
+    stdin.read_line(&mut fline)
+        .expect("failed to read input");
+    stdin.read_line(&mut sline)
+        .expect("failed to read input");
     fline.push_str(&sline);
     fline
 }
