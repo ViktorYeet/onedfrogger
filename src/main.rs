@@ -16,7 +16,7 @@ fn main() {
     stdin.read_line(&mut settings).expect("there should be data here"); */
 
     let mut settings = settings.trim().split(" ");
-    let board_size: isize = settings.next().unwrap().parse().expect("there should be things here");
+    let board_size: isize = settings.next().unwrap().parse().ok().ok_or_else("board size could not parse")?;
     let start_pos: isize = settings.next().unwrap().parse::<isize>().unwrap() -1;
     let win_value: isize = settings.next().unwrap().parse().expect("there should be things here");
 
